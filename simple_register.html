@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head><title>Simple Register</title></head>
+<body>
+    <h2>Simple Register Test</h2>
+    <form id="regForm">
+        <input type="text" id="fullName" placeholder="Full Name" value="Test User"><br>
+        <input type="email" id="email" placeholder="Email" value="test@test.com"><br>
+        <input type="text" id="username" placeholder="Username" value="testuser"><br>
+        <input type="password" id="password" placeholder="Password" value="12345"><br>
+        <button type="submit">Register</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('regForm').onsubmit = async (e) => {
+            e.preventDefault();
+            
+            const data = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+            
+            const res = await fetch('api/register.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            
+            const text = await res.text();
+            document.getElementById('result').innerHTML = text;
+        };
+    </script>
+</body>
+</html>

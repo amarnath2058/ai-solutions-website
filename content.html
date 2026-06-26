@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Management - AI Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div>
+            <h2>AI Solutions</h2>
+            <p>Admin Panel</p>
+        </div>
+    </div>
+    <div class="sidebar-menu">
+        <a href="dashboard.html" class="menu-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="inquiries.html" class="menu-item">
+            <i class="fas fa-envelope"></i>
+            <span>Inquiries</span>
+        </a>
+        <a href="content.html" class="menu-item active">
+            <i class="fas fa-file-alt"></i>
+            <span>Content</span>
+        </a>
+        <a href="add-admin.html" class="menu-item">
+            <i class="fas fa-user-plus"></i>
+            <span>Add Admin</span>
+        </a>
+        <div class="menu-divider"></div>
+        <div class="menu-item" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+    <div class="top-bar">
+        <div class="page-title">
+            <h1>📝 Content Management</h1>
+            <p>Manage articles, gallery, and events</p>
+        </div>
+        <div class="user-info">
+            <div class="admin-avatar"><i class="fas fa-user"></i></div>
+            <div class="admin-details">
+                <h4 class="admin-name">Admin User</h4>
+                <p>Administrator</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Type Cards -->
+    <div class="content-types-grid">
+        <div class="content-type-card" onclick="showContentType('articles')">
+            <i class="fas fa-newspaper"></i>
+            <h3>📄 Articles & Blog</h3>
+            <p>Manage blog posts and articles</p>
+        </div>
+        <div class="content-type-card" onclick="showContentType('gallery')">
+            <i class="fas fa-images"></i>
+            <h3>🖼️ Gallery</h3>
+            <p>Manage event photos and gallery</p>
+        </div>
+        <div class="content-type-card" onclick="showContentType('events')">
+            <i class="fas fa-calendar-alt"></i>
+            <h3>📅 Events</h3>
+            <p>Manage upcoming events</p>
+        </div>
+    </div>
+
+    <!-- ARTICLES -->
+    <div id="articlesContent">
+        <div class="table-container">
+            <div class="table-header">
+                <h3><i class="fas fa-newspaper"></i> Blog Articles</h3>
+                <button class="btn-add" onclick="openAddArticleModal()"><i class="fas fa-plus"></i> Add Article</button>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Date</th><th>Actions</th></tr></thead>
+                <tbody id="articlesBody"><tr><td colspan="5" style="text-align:center; padding:40px;">Loading...</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div id="galleryContent" style="display:none;">
+        <div class="table-container">
+            <div class="table-header">
+                <h3><i class="fas fa-images"></i> Gallery Images</h3>
+                <button class="btn-add" onclick="openAddGalleryModal()"><i class="fas fa-plus"></i> Add Image</button>
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+                <div style="text-align:center; padding:40px; grid-column: span 4;">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EVENTS -->
+    <div id="eventsContent" style="display:none;">
+        <div class="table-container">
+            <div class="table-header">
+                <h3><i class="fas fa-calendar-alt"></i> Upcoming Events</h3>
+                <button class="btn-add" onclick="openAddEventModal()"><i class="fas fa-plus"></i> Add Event</button>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>ID</th><th>Event Name</th><th>Date</th><th>Location</th><th>Actions</th></tr></thead>
+                <tbody id="eventsBody"><tr><td colspan="5" style="text-align:center; padding:40px;">Loading...</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Article Modal -->
+<div id="addArticleModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeAddArticleModal()">&times;</span>
+        <h3>Add New Article</h3>
+        <form id="addArticleForm">
+            <div class="form-group"><label>Title *</label><input type="text" id="articleTitle" required></div>
+            <div class="form-group">
+                <label>Category</label>
+                <select id="articleCategory"><option value="AI">AI</option><option value="Technology">Technology</option><option value="Business">Business</option></select>
+            </div>
+            <div class="form-group"><label>Content *</label><textarea id="articleContent" rows="5" required></textarea></div>
+            <div class="form-group"><label>Image URL</label><input type="text" id="articleImage" placeholder="https://images.unsplash.com/..."></div>
+            <button type="submit" class="btn-submit">Publish Article</button>
+        </form>
+    </div>
+</div>
+
+<!-- Add Gallery Modal -->
+<div id="addGalleryModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeAddGalleryModal()">&times;</span>
+        <h3>Add Gallery Image</h3>
+        <form id="addGalleryForm">
+            <div class="form-group"><label>Image Title *</label><input type="text" id="galleryTitle" required></div>
+            <div class="form-group"><label>Image URL *</label><input type="text" id="galleryImageUrl" placeholder="https://images.unsplash.com/..." required></div>
+            <div class="form-group"><label>Description</label><textarea id="galleryDescription" rows="3"></textarea></div>
+            <button type="submit" class="btn-submit">Add to Gallery</button>
+        </form>
+    </div>
+</div>
+
+<!-- Add Event Modal -->
+<div id="addEventModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeAddEventModal()">&times;</span>
+        <h3>Add New Event</h3>
+        <form id="addEventForm">
+            <div class="form-group"><label>Event Name *</label><input type="text" id="eventName" required></div>
+            <div class="form-group"><label>Event Date *</label><input type="date" id="eventDate" required></div>
+            <div class="form-group"><label>Location *</label><input type="text" id="eventLocation" required></div>
+            <div class="form-group"><label>Description</label><textarea id="eventDescription" rows="3"></textarea></div>
+            <button type="submit" class="btn-submit">Add Event</button>
+        </form>
+    </div>
+</div>
+
+<script src="admin_script.js"></script>
+<script>
+    let currentContentType = 'articles';
+    let allArticles = [], allGallery = [], allEvents = [];
+
+    window.onload = function() {
+        loadArticles();
+        loadGallery();
+        loadEvents();
+        showContentType('articles');
+    }
+
+    function showContentType(type) {
+        currentContentType = type;
+        document.getElementById('articlesContent').style.display = 'none';
+        document.getElementById('galleryContent').style.display = 'none';
+        document.getElementById('eventsContent').style.display = 'none';
+
+        if (type === 'articles') {
+            document.getElementById('articlesContent').style.display = 'block';
+            loadArticles();
+        } else if (type === 'gallery') {
+            document.getElementById('galleryContent').style.display = 'block';
+            loadGallery();
+        } else if (type === 'events') {
+            document.getElementById('eventsContent').style.display = 'block';
+            loadEvents();
+        }
+    }
+
+    // ===== ARTICLES =====
+    async function loadArticles() {
+        try {
+            const res = await fetch('api/get_articles.php');
+            const result = await res.json();
+            if (result.success) { allArticles = result.data; renderArticles(); }
+        } catch (error) {
+            document.getElementById('articlesBody').innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px;">Error loading</td></tr>';
+        }
+    }
+
+    function renderArticles() {
+        const tbody = document.getElementById('articlesBody');
+        if (allArticles.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px;">No articles yet</td></tr>';
+            return;
+        }
+        tbody.innerHTML = '';
+        allArticles.forEach(a => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerHTML = a.id;
+            row.insertCell(1).innerHTML = a.title || '-';
+            row.insertCell(2).innerHTML = a.category || '-';
+            row.insertCell(3).innerHTML = a.created_at ? new Date(a.created_at).toLocaleDateString() : '-';
+            row.insertCell(4).innerHTML = `<button class="btn-delete" onclick="deleteArticle(${a.id})">Delete</button>`;
+        });
+    }
+
+    function openAddArticleModal() { document.getElementById('addArticleModal').style.display = 'flex'; }
+    function closeAddArticleModal() { document.getElementById('addArticleModal').style.display = 'none'; }
+
+    document.getElementById('addArticleForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = {
+            title: document.getElementById('articleTitle').value,
+            category: document.getElementById('articleCategory').value,
+            content: document.getElementById('articleContent').value,
+            image: document.getElementById('articleImage').value
+        };
+        const res = await fetch('api/add_article.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) { alert('✅ Article published!'); closeAddArticleModal(); loadArticles(); }
+    });
+
+    async function deleteArticle(id) {
+        if (confirm('Delete this article?')) {
+            await fetch('api/delete_article.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id })
+            });
+            loadArticles();
+        }
+    }
+
+    // ===== GALLERY =====
+    async function loadGallery() {
+        try {
+            const res = await fetch('api/get_gallery.php');
+            const result = await res.json();
+            if (result.success) { allGallery = result.data; renderGallery(); }
+        } catch (error) {
+            document.getElementById('galleryGrid').innerHTML = '<div style="text-align:center; padding:40px; grid-column: span 4;">Error loading</div>';
+        }
+    }
+
+    function renderGallery() {
+        const grid = document.getElementById('galleryGrid');
+        if (allGallery.length === 0) {
+            grid.innerHTML = '<div style="text-align:center; padding:40px; grid-column: span 4;">No images</div>';
+            return;
+        }
+        grid.innerHTML = '';
+        allGallery.forEach(img => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.innerHTML = `
+                <img src="${img.image_url}" alt="${img.title}">
+                <div class="gallery-item-info">
+                    <h4>${img.title}</h4>
+                    <button class="btn-delete" onclick="deleteGalleryItem(${img.id})" style="width:100%;">Delete</button>
+                </div>
+            `;
+            grid.appendChild(div);
+        });
+    }
+
+    function openAddGalleryModal() { document.getElementById('addGalleryModal').style.display = 'flex'; }
+    function closeAddGalleryModal() { document.getElementById('addGalleryModal').style.display = 'none'; }
+
+    document.getElementById('addGalleryForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = {
+            title: document.getElementById('galleryTitle').value,
+            image_url: document.getElementById('galleryImageUrl').value,
+            description: document.getElementById('galleryDescription').value
+        };
+        const res = await fetch('api/add_gallery.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) { alert('✅ Image added!'); closeAddGalleryModal(); loadGallery(); }
+    });
+
+    async function deleteGalleryItem(id) {
+        if (confirm('Delete this image?')) {
+            await fetch('api/delete_gallery.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id })
+            });
+            loadGallery();
+        }
+    }
+
+    // ===== EVENTS =====
+    async function loadEvents() {
+        try {
+            const res = await fetch('api/get_events.php');
+            const result = await res.json();
+            if (result.success) { allEvents = result.data; renderEvents(); }
+        } catch (error) {
+            document.getElementById('eventsBody').innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px;">Error loading</td></tr>';
+        }
+    }
+
+    function renderEvents() {
+        const tbody = document.getElementById('eventsBody');
+        if (allEvents.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px;">No events yet</td></tr>';
+            return;
+        }
+        tbody.innerHTML = '';
+        allEvents.forEach(e => {
+            const today = new Date();
+            const eventDate = new Date(e.event_date);
+            const status = eventDate > today ? 'Upcoming' : 'Past';
+            const row = tbody.insertRow();
+            row.insertCell(0).innerHTML = e.id;
+            row.insertCell(1).innerHTML = e.name || '-';
+            row.insertCell(2).innerHTML = e.event_date || '-';
+            row.insertCell(3).innerHTML = e.location || '-';
+            row.insertCell(4).innerHTML = `<button class="btn-delete" onclick="deleteEvent(${e.id})">Delete</button>`;
+        });
+    }
+
+    function openAddEventModal() { document.getElementById('addEventModal').style.display = 'flex'; }
+    function closeAddEventModal() { document.getElementById('addEventModal').style.display = 'none'; }
+
+    document.getElementById('addEventForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = {
+            name: document.getElementById('eventName').value,
+            event_date: document.getElementById('eventDate').value,
+            location: document.getElementById('eventLocation').value,
+            description: document.getElementById('eventDescription').value
+        };
+        const res = await fetch('api/add_event.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) { alert('✅ Event added!'); closeAddEventModal(); loadEvents(); }
+    });
+
+    async function deleteEvent(id) {
+        if (confirm('Delete this event?')) {
+            await fetch('api/delete_event.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id })
+            });
+            loadEvents();
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Solutions - Insight</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">
+        <img src="images/logo.png" alt="AI Solutions Logo">
+        <span>AI Solutions</span>
+    </div>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="solutions.html">Solutions</a></li>
+        <li><a href="insight.html">Insight</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</nav>
+
+<!-- Modal Popup -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+        <button class="modal-btn" onclick="location.href='contact.html'">Contact Us →</button>
+    </div>
+</div>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+    <h1>Case Studies</h1>
+    <p>See how we help businesses solve challenges and achieve success.</p>
+</section>
+
+<!-- CASE STUDIES SECTION -->
+<section class="case-studies-page">
+    <div class="container">
+        <div class="case-studies-container">
+            <div class="case-card">
+                <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=250&fit=crop" alt="E-commerce AI">
+                <h3>E-commerce Giant Saves 40% with AI</h3>
+                <p>Implementing AI virtual assistant reduced customer service costs by 40% and improved response time by 60%.</p>
+                <a href="#" onclick="openModal('E-commerce Giant Saves 40% with AI', 'Our AI Virtual Assistant helped this e-commerce company automate customer service, reducing costs by 40% and improving response time by 60%. The AI handles 80% of queries automatically. Contact us to learn how we can help your business.'); return false;">Read More →</a>
+            </div>
+
+            <div class="case-card">
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=250&fit=crop" alt="Healthcare AI">
+                <h3>Healthcare Success Story</h3>
+                <p>AI prototyping helped launch medical device in just 3 months, saving over $2M in development costs.</p>
+                <a href="#" onclick="openModal('Healthcare Success Story', 'Using our AI Prototyping Tool, this healthcare company launched their medical device 3 months ahead of schedule, saving over $2M in development costs. Contact us to learn how we can help your business.'); return false;">Read More →</a>
+            </div>
+
+            <div class="case-card">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop" alt="FinTech AI">
+                <h3>FinTech Transformation</h3>
+                <p>Data analytics platform increased revenue by 25% in first quarter and improved customer retention by 35%.</p>
+                <a href="#" onclick="openModal('FinTech Transformation', 'Our Data Analytics Platform helped this FinTech company increase revenue by 25% and improve customer retention by 35% within the first quarter. Contact us to learn how we can help your business.'); return false;">Read More →</a>
+            </div>
+
+            <div class="case-card">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop" alt="Retail AI">
+                <h3>Retail Chain Optimization</h3>
+                <p>AI solutions improved inventory management by 60% and reduced waste by 45% across 200+ stores.</p>
+                <a href="#" onclick="openModal('Retail Chain Optimization', 'Our AI solutions helped this retail chain improve inventory management by 60% and reduce waste by 45% across 200+ stores. Contact us to learn how we can help your business.'); return false;">Read More →</a>
+            </div>
+
+            <div class="case-card">
+                <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=400&h=250&fit=crop" alt="Manufacturing AI">
+                <h3>Manufacturing Efficiency</h3>
+                <p>Predictive maintenance reduced downtime by 45% and saved $1.5M annually in maintenance costs.</p>
+                <a href="#" onclick="openModal('Manufacturing Efficiency', 'Our predictive maintenance solution reduced downtime by 45% and saved $1.5M annually in maintenance costs. Contact us to learn how we can help your business.'); return false;">Read More →</a>
+            </div>
+
+            <div class="case-card">
+                <img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=400&h=250&fit=crop" alt="Customer Service AI">
+                <h3>Customer Service Excellence</h3>
+                <p>AI virtual assistant handles 80% of customer queries automatically, reducing wait time to under 30 seconds.</p>
+                <a href="#" onclick="openModal('Customer Service Excellence', 'Our AI Virtual Assistant handles 80% of customer queries automatically, reducing wait time to under 30 seconds and improving customer satisfaction by 45%. Contact us to learn how we can help your business.'); return false;">Read More →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BLOG SECTION -->
+<section class="blog-section">
+    <div class="container">
+        <div class="blog-header">
+            <h1>Latest Blog Posts</h1>
+            <p>Insights, updates and trends from the world of AI and software.</p>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=250&fit=crop" alt="AI in Business">
+                <h3>AI in Modern Business</h3>
+                <p>Discover how artificial intelligence is transforming industries worldwide and creating new opportunities for growth.</p>
+                <a href="#" onclick="openModal('AI in Modern Business', 'Artificial intelligence is revolutionizing how businesses operate. From automating routine tasks to providing deep insights through data analysis, AI is creating new opportunities for growth and innovation. Contact us to learn more.'); return false;">Read More →</a>
+            </div>
+
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=250&fit=crop" alt="Cloud Computing">
+                <h3>Cloud Computing Trends 2026</h3>
+                <p>Learn about the latest innovations in cloud infrastructure, serverless computing, and edge computing services.</p>
+                <a href="#" onclick="openModal('Cloud Computing Trends 2026', 'Cloud computing continues to evolve with serverless architectures, edge computing, and hybrid solutions becoming mainstream. Learn how these trends can benefit your business. Contact us to learn more.'); return false;">Read More →</a>
+            </div>
+
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=250&fit=crop" alt="Cyber Security">
+                <h3>Cyber Security Protection</h3>
+                <p>Best practices to keep your business secure from cyber threats, including AI-powered security solutions.</p>
+                <a href="#" onclick="openModal('Cyber Security Protection', 'Protect your business from cyber threats with AI-powered security solutions. Learn best practices for keeping your data safe. Contact us to learn more.'); return false;">Read More →</a>
+            </div>
+
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=250&fit=crop" alt="Machine Learning">
+                <h3>Machine Learning Explained</h3>
+                <p>A beginner's guide to understanding machine learning algorithms and their real-world applications.</p>
+                <a href="#" onclick="openModal('Machine Learning Explained', 'Machine learning is a subset of AI that enables systems to learn from data. This guide explains the basics and real-world applications. Contact us to learn more.'); return false;">Read More →</a>
+            </div>
+
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop" alt="Data Science">
+                <h3>The Future of Data Science</h3>
+                <p>Explore emerging trends in data science, big data analytics, and how businesses leverage data for success.</p>
+                <a href="#" onclick="openModal('The Future of Data Science', 'Data science is evolving with AI integration, automated machine learning, and real-time analytics. Discover how businesses are leveraging data for success. Contact us to learn more.'); return false;">Read More →</a>
+            </div>
+
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=250&fit=crop" alt="AI Ethics">
+                <h3>AI Ethics & Responsible AI</h3>
+                <p>Understanding the ethical implications of AI and how to build responsible, fair AI systems.</p>
+                <a href="#" onclick="openModal('AI Ethics & Responsible AI', 'As AI becomes more powerful, understanding ethical implications is crucial. Learn how to build responsible and fair AI systems. Contact us to learn more.'); return false;">Read More →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CHATBOT ICON -->
+<div class="chatbot-icon" id="chatbotIcon">
+    <div class="chat-icon">💬</div>
+</div>
+
+<!-- CHATBOT WINDOW -->
+<div class="chatbot" id="chatbotWindow">
+    <div class="chat-header">
+        🤖 AI Assistant
+        <span class="close-chat" id="closeChat">&times;</span>
+    </div>
+    <div class="chat-body" id="chatBody">
+        <div class="bot-msg">Hi 👋</div>
+        <div class="bot-msg">How can I help you today?</div>
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="chatInput" placeholder="Type your message...">
+        <button id="sendBtn">➤</button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-box">
+            <h3>AI Solutions</h3>
+            <p>Sunderland, UK</p>
+            <p>Email: info@aisolutions.com</p>
+            <p>Phone: +9779824800993</p>
+        </div>
+        <div class="footer-box">
+            <h3>Quick Links</h3>
+            <a href="solutions.html">Solutions</a>
+            <a href="gallery.html">Events</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-box">
+            <h3>Policies</h3>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div class="footer-box">
+            <h3>Stay Updated</h3>
+            <div class="subscribe">
+                <input type="email" placeholder="Your email address">
+                <button onclick="alert('Subscribed!')">Subscribe</button>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">©2026 AI Solutions. All rights reserved.</div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

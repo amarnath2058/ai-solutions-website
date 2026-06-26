@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiries - AI Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="admin_style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div>
+            <h2>AI Solutions</h2>
+            <p>Admin Panel</p>
+        </div>
+    </div>
+    <div class="sidebar-menu">
+        <a href="dashboard.html" class="menu-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="inquiries.html" class="menu-item active">
+            <i class="fas fa-envelope"></i>
+            <span>Inquiries</span>
+        </a>
+        <a href="content.html" class="menu-item">
+            <i class="fas fa-file-alt"></i>
+            <span>Content</span>
+        </a>
+        <a href="add-admin.html" class="menu-item">
+            <i class="fas fa-user-plus"></i>
+            <span>Add Admin</span>
+        </a>
+        <div class="menu-divider"></div>
+        <div class="menu-item" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+    <div class="top-bar">
+        <div class="page-title">
+            <h1>📋 Inquiry Management</h1>
+            <p>Manage all customer inquiries</p>
+        </div>
+        <div class="user-info">
+            <div class="admin-avatar"><i class="fas fa-user"></i></div>
+            <div class="admin-details">
+                <h4 class="admin-name">Admin User</h4>
+                <p>Administrator</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid" style="margin-bottom:25px;">
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon" style="background:#fff7ed;"><i class="fas fa-envelope" style="color:#ff6b35;"></i></div>
+            </div>
+            <div class="stat-value" id="totalCount">0</div>
+            <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon" style="background:#fffbeb;"><i class="fas fa-clock" style="color:#f59e0b;"></i></div>
+            </div>
+            <div class="stat-value" id="pendingCount">0</div>
+            <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon" style="background:#ecfdf5;"><i class="fas fa-check-circle" style="color:#10b981;"></i></div>
+            </div>
+            <div class="stat-value" id="repliedCount">0</div>
+            <div class="stat-label">Replied</div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+        <div class="table-header">
+            <h3>All Inquiries</h3>
+            <button class="btn-export" onclick="exportInquiriesCSV()"><i class="fas fa-download"></i> Export CSV</button>
+        </div>
+        <div style="overflow-x:auto;">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Company</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="inquiriesBody">
+                    <tr><td colspan="7" style="text-align:center; padding:40px;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Reply Modal -->
+<div id="replyModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeReplyModal()">&times;</span>
+        <h3>Reply to Customer</h3>
+        <p><strong>To:</strong> <span id="replyEmail"></span></p>
+        <textarea id="replyMessage" rows="5" placeholder="Type your reply here..."></textarea>
+        <button class="btn-submit" onclick="sendReply()">Send Reply</button>
+    </div>
+</div>
+
+<script src="admin_script.js"></script>
+<script>
+    let allInquiries = [];
+    let currentReplyId = null;
+
+    window.onload = function() {
+        loadInquiries();
+    }
+
+    async function loadInquiries() {
+        try {
+            const response = await fetch('api/get_inquiries.php');
+            const result = await response.json();
+
+            if (result.success && result.data) {
+                allInquiries = result.data;
+                updateStats();
+                renderTable();
+            }
+        } catch (error) {
+            document.getElementById('inquiriesBody').innerHTML = '<tr><td colspan="7" style="text-align:center; padding:40px;">Error loading data</td></tr>';
+        }
+    }
+
+    function updateStats() {
+        const total = allInquiries.length;
+        const pending = allInquiries.filter(i => i.status === 'pending').length;
+        const replied = allInquiries.filter(i => i.status === 'replied').length;
+
+        document.getElementById('totalCount').innerText = total;
+        document.getElementById('pendingCount').innerText = pending;
+        document.getElementById('repliedCount').innerText = replied;
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('inquiriesBody');
+
+        if (allInquiries.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:40px;">No inquiries yet</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = '';
+        allInquiries.forEach(inq => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerHTML = inq.id;
+            row.insertCell(1).innerHTML = inq.submitted_at ? new Date(inq.submitted_at).toLocaleString() : '-';
+            row.insertCell(2).innerHTML = inq.full_name || '-';
+            row.insertCell(3).innerHTML = inq.email || '-';
+            row.insertCell(4).innerHTML = inq.company || '-';
+            row.insertCell(5).innerHTML = `<span class="status-badge status-${inq.status || 'pending'}">${inq.status || 'pending'}</span>`;
+            row.insertCell(6).innerHTML = `
+                <button class="btn-reply" onclick="openReplyModal(${inq.id}, '${inq.email}')">Reply</button>
+                <button class="btn-delete" onclick="deleteInquiry(${inq.id})">Delete</button>
+            `;
+        });
+    }
+
+    function openReplyModal(id, email) {
+        currentReplyId = id;
+        document.getElementById('replyEmail').innerHTML = email;
+        document.getElementById('replyModal').style.display = 'flex';
+    }
+
+    function closeReplyModal() {
+        document.getElementById('replyModal').style.display = 'none';
+        document.getElementById('replyMessage').value = '';
+    }
+
+    async function sendReply() {
+        const message = document.getElementById('replyMessage').value;
+        if (!message) { alert("Please enter a reply message"); return; }
+
+        try {
+            const response = await fetch('api/reply_inquiry.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: currentReplyId, message: message })
+            });
+            const result = await response.json();
+            if (result.success) {
+                alert('✅ Reply sent successfully!');
+                closeReplyModal();
+                loadInquiries();
+            } else {
+                alert('Error: ' + result.message);
+            }
+        } catch (error) {
+            alert('Network error: ' + error.message);
+        }
+    }
+
+    async function deleteInquiry(id) {
+        if (confirm('Are you sure you want to delete this inquiry?')) {
+            await fetch('api/delete_inquiry.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id })
+            });
+            loadInquiries();
+        }
+    }
+
+    function exportInquiriesCSV() {
+        if (allInquiries.length === 0) { alert("No data to export"); return; }
+
+        let csv = "ID,Date,Name,Email,Phone,Company,Country,Job Title,Message,Status\n";
+        allInquiries.forEach(inq => {
+            csv += `"${inq.id}","${inq.submitted_at}","${inq.full_name || ''}","${inq.email || ''}","${inq.phone || ''}","${inq.company || ''}","${inq.country || ''}","${inq.job_title || ''}","${(inq.job_details || '').replace(/"/g, '""')}","${inq.status || 'pending'}"\n`;
+        });
+
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `inquiries_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - AI Solutions</title>
+    <link rel="stylesheet" href="admin_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="login-container">
+    <div class="logo">AI Solutions</div>
+    <h2>Admin Login</h2>
+    
+    <div class="input-group">
+        <label>Username</label>
+        <input type="text" id="adminUsername" placeholder="Enter username">
+    </div>
+    
+    <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="adminPassword" placeholder="Enter password">
+    </div>
+    
+    <div class="options">
+        <label class="remember">
+            <input type="checkbox" id="rememberMe"> Remember Me
+        </label>
+    </div>
+    
+    <button class="login-btn" onclick="login()">Login</button>
+    
+  
+    <div id="loginError" class="error-msg"></div>
+</div>
+
+<script src="admin_script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Solutions - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">
+        <img src="images/logo.png" alt="AI Solutions Logo">
+        <span>AI Solutions</span>
+    </div>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="solutions.html">Solutions</a></li>
+        <li><a href="insight.html">Insight</a></li>
+        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>AI SOLUTIONS<br>Innovative Software<br>Solutions for a<br>Smarter Tomorrow</h1>
+        <p>We help businesses automate, integrate and scale with intelligent software solutions.</p>
+        <div class="hero-buttons">
+            <button class="btn1" onclick="location.href='solutions.html'">Our Solutions</button>
+            <button class="btn2" onclick="location.href='contact.html'">Contact Us</button>
+        </div>
+
+
+        
+        <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Projects Delivered</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Client Satisfaction</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support Available</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img id="sliderImage" src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop" alt="Hero Image">
+        <div class="slider-dots">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Why Choose AI SOLUTION?</h2>
+    <div class="feature-container">
+        <div class="box">
+            <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=400&h=250&fit=crop" alt="AI Automation">
+            <h3>AI Automation</h3>
+        </div>
+        <div class="box">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=250&fit=crop" alt="Cloud Services">
+            <h3>Cloud Services</h3>
+        </div>
+        <div class="box">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=250&fit=crop" alt="Cyber Security">
+            <h3>Cyber Security</h3>
+        </div>
+        <div class="box">
+            <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=400&h=250&fit=crop" alt="24/7 Support">
+            <h3>24/7 Support</h3>
+        </div>
+    </div>
+</section>
+
+<!-- CHATBOT ICON -->
+<div class="chatbot-icon" id="chatbotIcon">
+    <div class="chat-icon">💬</div>
+</div>
+
+<!-- CHATBOT WINDOW -->
+<div class="chatbot" id="chatbotWindow">
+    <div class="chat-header">
+        🤖 AI Assistant
+        <span class="close-chat" id="closeChat">&times;</span>
+    </div>
+    <div class="chat-body" id="chatBody">
+        <div class="bot-msg">Hi 👋</div>
+        <div class="bot-msg">How can I help you today?</div>
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="chatInput" placeholder="Type your message...">
+        <button id="sendBtn">➤</button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-box">
+            <h3>AI Solutions</h3>
+            <p>Sunderland, UK</p>
+            <p>Email: info@aisolutions.com</p>
+            <p>Phone: +9779824800993</p>
+        </div>
+        <div class="footer-box">
+            <h3>Quick Links</h3>
+            <a href="solutions.html">Solutions</a>
+            <a href="gallery.html">Events</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-box">
+            <h3>Policies</h3>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div class="footer-box">
+            <h3>Stay Updated</h3>
+            <div class="subscribe">
+                <input type="email" id="subscribeEmail" placeholder="Your email address">
+                <button onclick="alert('Subscribed!')">Subscribe</button>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">©2026 AI Solutions. All rights reserved.</div>
+</footer>
+
+<script src="script.js"></script>
+
+<script>
+    // Update slider images to be relevant
+    const sliderImages = [
+        'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1555255707-c07966088b7b?w=600&h=400&fit=crop',
+        'https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600&h=400&fit=crop'
+    ];
+    
+    // Your existing slider code will use these images
+    if(typeof changeImage !== 'undefined') {
+        // If you have slider function, it will work
+    }
+</script>
+
+</body>
+
+</html>
