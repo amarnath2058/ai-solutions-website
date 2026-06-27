@@ -1,14 +1,14 @@
 <?php
-require_once 'db.php';  // uses your existing database connection
+require_once 'db.php';  
 
-// --- CHANGE THESE IF YOU WANT ---
+
 $username = 'admin';
 $password = 'admin123';
 $fullName = 'Admin User';
 $email = 'admin@yourdomain.com';
-// --------------------------------
 
-// Check if admin already exists
+
+
 $check = $pdo->prepare("SELECT id FROM admins WHERE username = ? OR email = ?");
 $check->execute([$username, $email]);
 if ($check->rowCount() > 0) {
