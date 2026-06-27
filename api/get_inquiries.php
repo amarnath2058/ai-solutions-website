@@ -5,14 +5,12 @@ error_reporting(E_ALL);
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-// Adjust the path to your db.php:
-// If db.php is inside config/ folder, use this:
+
 require_once __DIR__ . '/../config/db.php';
-// If db.php is in the root, use this instead:
-// require_once __DIR__ . '/../db.php';
+
 
 try {
-    // Alias created_at as submitted_at so the frontend works without changes
+    
     $sql = "SELECT 
                 id, 
                 full_name, 
