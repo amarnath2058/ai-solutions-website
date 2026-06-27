@@ -7,9 +7,9 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
-// Adjust the path to your db.php:
+
 require_once __DIR__ . '/../config/db.php';
-// OR require_once __DIR__ . '/../db.php';
+
 
 $data = json_decode(file_get_contents('php://input'), true);
 
@@ -27,7 +27,7 @@ if (empty($full_name) || empty($email) || empty($phone)) {
 }
 
 try {
-    // No submitted_at column – created_at will be set automatically by MySQL
+    
     $sql = "INSERT INTO inquiries (full_name, email, phone, company, country, job_title, job_details, status) 
             VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')";
     $stmt = $pdo->prepare($sql);
