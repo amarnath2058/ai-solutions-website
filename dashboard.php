@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// 🔒 If not logged in, redirect to login page
+
 if (!isset($_SESSION['admin_id'])) {
     header('Location: admin.html');
     exit;
